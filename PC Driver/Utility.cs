@@ -1,6 +1,7 @@
 ﻿using System.IO.Ports;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System;
 
 namespace PC_Driver
 {
@@ -96,7 +97,16 @@ namespace PC_Driver
             port.Write(dataByte, 0, dataByte.Length);
         }
 
-
+        public static void ShowInTextbox(TextBox textBox, byte[] data)
+        {
+            textBox.Text += "Address: ";
+            textBox.Text += Utility.IntToBinary(data[0]);
+            textBox.Text += Environment.NewLine;
+            textBox.Text += "Command: ";
+            textBox.Text += Utility.IntToBinary(data[1]);
+            textBox.Text += Environment.NewLine;
+            textBox.Text += Environment.NewLine;
+        }
 
         #endregion
 

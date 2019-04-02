@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace PC_Driver
 {
@@ -36,8 +37,52 @@ namespace PC_Driver
             groupsLabel.Text = Device._groups;
         }
 
+        static public void SetLogInfo(byte[] receivedByte)
+        {
+            int Y = receivedByte[0] >> 7;
+
+            if (Y == 0)
+            {
+                int receivedAddress = (receivedByte[0] >> 1) & 0x3F;
+
+                for (int i = 0; i < 64; i++)
+                {
+                    if (Utility._device[i] != null && Utility._device[i].Address == receivedAddress)
+                    {
+                        Utility.ShowInTextbox(Utility._deviceForm[i].logBox, receivedByte);
+                        Utility._deviceForm[i].ledPanel.BackColor = Color.FromArgb(receivedByte[1], receivedByte[1], receivedByte[1]);
+                    }
+
+                }
+            }
+
+            else
+            {
+                int receivedGroup = (receivedByte[0] >> 1) & 0x0F;
+
+                for (int i = 0; i < 64; i++)
+                {
+                    if (Utility._device[i] != null && Utility._device[i]._assignedGroups[receivedGroup])
+                    {
+                        Utility._deviceForm[i].logBox.Text += "Address: ";
+                        Utility._deviceForm[i].logBox.Text += Utility.IntToBinary(receivedByte[0]);
+                        Utility._deviceForm[i].logBox.Text += Environment.NewLine;
+                        Utility._deviceForm[i].logBox.Text += "Command: ";
+                        Utility._deviceForm[i].logBox.Text += Utility.IntToBinary(receivedByte[1]);
+                        Utility._deviceForm[i].logBox.Text += Environment.NewLine;
+                        Utility._deviceForm[i].logBox.Text += Environment.NewLine;
+                    }
+                }
+            }
+        }
+
         #endregion
 
+        private void LogBox_TextChanged(object sender, EventArgs e)
+        {
+            logBox.SelectionStart = logBox.Text.Length;
+            logBox.ScrollToCaret();
+        }
     }
 
     public class Device

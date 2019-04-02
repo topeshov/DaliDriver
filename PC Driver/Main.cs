@@ -206,13 +206,9 @@ namespace PC_Driver
             byte[] monoBrightness = new byte[2];
             monoBrightness[0] = (byte)firstByte;
             monoBrightness[1] = (byte)monoTrackBar.Value;
-            receiveText.Text += "Address: ";
-            receiveText.Text += Utility.IntToBinary(monoBrightness[0]);
-            receiveText.Text += Environment.NewLine;
-            receiveText.Text += "Command: ";
-            receiveText.Text += Utility.IntToBinary(monoBrightness[1]);
-            receiveText.Text += Environment.NewLine;
-            receiveText.Text += Environment.NewLine;
+
+            DeviceForm.SetLogInfo(monoBrightness);
+            Utility.ShowInTextbox(receiveText, monoBrightness);
             //_myPort.Write(monoBrightness, 0, 1);
         }
 

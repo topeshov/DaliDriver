@@ -37,16 +37,18 @@
             this.typeLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupsLabel = new System.Windows.Forms.Label();
+            this.ledPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // logBox
             // 
             this.logBox.Enabled = false;
-            this.logBox.Location = new System.Drawing.Point(2, 172);
+            this.logBox.Location = new System.Drawing.Point(15, 132);
             this.logBox.Multiline = true;
             this.logBox.Name = "logBox";
             this.logBox.Size = new System.Drawing.Size(290, 183);
             this.logBox.TabIndex = 0;
+            this.logBox.TextChanged += new System.EventHandler(this.LogBox_TextChanged);
             // 
             // label1
             // 
@@ -120,12 +122,21 @@
             this.groupsLabel.TabIndex = 8;
             this.groupsLabel.Text = "-";
             // 
+            // ledPanel
+            // 
+            this.ledPanel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.ledPanel.Location = new System.Drawing.Point(15, 332);
+            this.ledPanel.Name = "ledPanel";
+            this.ledPanel.Size = new System.Drawing.Size(290, 172);
+            this.ledPanel.TabIndex = 9;
+            // 
             // DeviceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(315, 516);
+            this.ClientSize = new System.Drawing.Size(319, 516);
             this.ControlBox = false;
+            this.Controls.Add(this.ledPanel);
             this.Controls.Add(this.groupsLabel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.typeLabel);
@@ -153,5 +164,6 @@
         private System.Windows.Forms.Label typeLabel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label groupsLabel;
+        private System.Windows.Forms.Panel ledPanel;
     }
 }
